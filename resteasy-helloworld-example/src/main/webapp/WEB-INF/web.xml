@@ -4,14 +4,18 @@
 
 <web-app>
 	<display-name>Archetype Created Web Application</display-name>
+	
+	<!-- 开启auth用户角色认证  -->
 	<context-param>
-		<param-name>resteasy.scan</param-name>
-		<param-value>true</param-value>
-	</context-param>
+      <param-name>resteasy.role.based.security</param-name>
+      <param-value>true</param-value>
+    </context-param>
+	
 	<context-param>
 		<param-name>resteasy.servlet.mapping.prefix</param-name>
 		<param-value>/v1/api</param-value>
 	</context-param>
+	
 	<listener>
 		<listener-class>
 			org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap
@@ -49,5 +53,50 @@
 		<servlet-name>Resteasy</servlet-name>
 		<url-pattern>/v1/api/*</url-pattern>
 	</servlet-mapping>
-
+	
+	<!-- auth认证 -->
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Resteasy</web-resource-name>
+         	<url-pattern>/v1/api/*</url-pattern>
+         	<http-method>PUT</http-method>
+        	<http-method>DELETE</http-method>
+        	<http-method>POST</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+         	<role-name>manager</role-name>
+         	<role-name>user</role-name>
+		</auth-constraint>
+		<!--  
+		<user-data-constraint>
+        	<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    	</user-data-constraint>
+    	-->
+  	</security-constraint>
+	
+    <login-config>
+		<auth-method>BASIC</auth-method>
+		<realm-name>BASIC AUTH</realm-name>
+   	</login-config>
+	
+	<!--  
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<realm-name>FORM AUTH</realm-name>
+		<form-login-config>
+			<form-login-page>/login.jsp</form-login-page>
+			<form-error-page>/error.jsp</form-error-page>
+		</form-login-config>
+	</login-config>
+	-->
+	
+   	<security-role>
+		<role-name>manager</role-name>
+   	</security-role>
+   	<security-role>
+		<role-name>user</role-name>
+   	</security-role>
+	
+	<!-- 其用户角色信息在tomcat-users.xml中配置 -->
+	<!-- http://docs.oracle.com/javaee/6/tutorial/doc/gkbaa.html -->
 </web-app>

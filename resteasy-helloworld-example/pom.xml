@@ -12,7 +12,12 @@
 	<packaging>war</packaging>
 	<name>resteasy-helloworld-example</name>
 	<url>http://maven.apache.org</url>
-
+	
+	<properties>
+		<slf4j.version>1.7.5</slf4j.version>
+		<logback.version>1.0.13</logback.version>
+	</properties>
+	
 	<dependencies>
 		<!-- core library -->
 		<dependency>
@@ -27,6 +32,12 @@
 		</dependency>
 
 		<!-- optional modules -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
 		<!-- JAXB support -->
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
@@ -37,12 +48,6 @@
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-multipart-provider</artifactId>
-			<version>3.0.9.Final</version>
-		</dependency>
-		<!-- JSON-P support -->
-		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-json-p-provider</artifactId>
 			<version>3.0.9.Final</version>
 		</dependency>
 		<!-- Jackson 1.9.x -->
@@ -96,7 +101,18 @@
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
-			<version>4.3</version>
+			<version>4.3.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
+			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 	<build>

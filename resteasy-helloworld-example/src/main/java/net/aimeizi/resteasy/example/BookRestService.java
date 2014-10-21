@@ -3,6 +3,8 @@ package net.aimeizi.resteasy.example;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -14,11 +16,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 @Path("/bookstore")
+@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 public class BookRestService {
-
+	
 	@GET
 	@Path("/books")
-	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML,"application/javascript"})
+	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+	@PermitAll
 	public List<Book> getBooks() {
 		List<Book> books = new ArrayList<Book>();
 		Book book;
@@ -32,7 +37,8 @@ public class BookRestService {
 
 	@GET
 	@Path("/book/{isbn}")
-	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML,"text/json"})
+	@PermitAll
 	public Book getBook(@PathParam("isbn") String isbn) {
 		Publisher publisher = new Publisher(1,"陕西师范大学出版社");
 		Book book = new Book(1,"金庸",isbn,"书剑恩仇录",publisher);
@@ -43,6 +49,7 @@ public class BookRestService {
 	@Path("/book")
 	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+	@RolesAllowed("manager")//具有manager角色的用户才可以调用该方法
 	public Book addBook(Book book) {
 		return book;
 	}
@@ -52,6 +59,7 @@ public class BookRestService {
 	@Path("/book")
 	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+	@RolesAllowed("manager")//具有manager角色的用户才可以调用该方法
 	public Book updateBook(Book book) {
 		return book;
 	}
@@ -60,6 +68,7 @@ public class BookRestService {
 	@DELETE
 	@Path("/book/{id}")
 	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+	@RolesAllowed("manager")//具有manager角色的用户才可以调用该方法
 	public Book removeBook(@PathParam("id") String id) {
 		Publisher publisher = new Publisher(1,"陕西师范大学出版社");
 		Book book = new Book(Integer.parseInt(id),"金庸","987634556","书剑恩仇录",publisher);

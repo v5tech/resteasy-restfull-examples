@@ -3,8 +3,17 @@ package net.aimeizi.resteasy.example;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+import net.aimeizi.resteasy.Pretty;
+
+import org.jboss.resteasy.annotations.providers.jackson.Formatted;
 
 @XmlRootElement(name = "book")
+@XmlType(propOrder={"id","title","author","isbn","publisher"})//定义xml中元素的顺序
+@Pretty
+@Formatted
+//@NoJackson//不使用Jackson而使用Jettison and JAXB输出JSON
 public class Book {
 	private int id;
 	private String author;
