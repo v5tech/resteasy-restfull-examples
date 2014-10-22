@@ -175,7 +175,7 @@ public class HttpClient {
 			// Define a HttpGet request;
 			// You can choose between HttpPost, HttpDelete or HttpPut also.
 			// Choice depends on type of method you will be invoking.
-			HttpGet getRequest = new HttpGet("http://localhost:8080/v1/api/bookstore/books");
+			HttpGet getRequest = new HttpGet("http://localhost:8080/v1/api/bookstore/list");
 
 			// Set the API media type in http accept header
 			//getRequest.addHeader("Accept", "application/xml");

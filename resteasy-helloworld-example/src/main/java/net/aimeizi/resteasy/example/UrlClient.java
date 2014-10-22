@@ -246,7 +246,7 @@ public class UrlClient {
 	
 	private static void GetBooks() {
 		try {
-			URL url = new URL("http://localhost:8080/v1/api/bookstore/books");
+			URL url = new URL("http://localhost:8080/v1/api/bookstore/list");
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Accept", "application/xml");
@@ -275,7 +275,7 @@ public class UrlClient {
 			
 			System.out.println("----------------------------------------------------------------");
 			
-			url = new URL("http://localhost:8080/v1/api/bookstore/books?callback=books");
+			url = new URL("http://localhost:8080/v1/api/bookstore/list?callback=books");
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Accept", "application/json");
